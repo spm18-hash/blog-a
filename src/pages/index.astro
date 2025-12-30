@@ -1,0 +1,17 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Home";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <h1>{pageTitle}</h1>
+</BaseLayout>
+
+<style>
+    h1 {
+        font-size: var(--text-4xl);
+        font-weight: var(--font-weight-semibold);
+        letter-spacing: var(--tracking-tight);
+    }
+</style>

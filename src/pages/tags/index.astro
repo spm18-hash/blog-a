@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Tag from "../../components/Tag.astro";
+
+import { getCollection } from "astro:content";
+const blogs = await getCollection("blog");
+
+const uniqueTags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
+---
+
+<BaseLayout pageTitle="Tags">
+    <div class="flex flex-wrap gap-2">
+        {
+            uniqueTags.map((tag) => (
+                <Tag
+                    classes="text-base px-3 py-1.5"
+                    href={`/tags/${tag}`}
+                    tag={tag}
+                />
+            ))
+        }
+    </div>
+</BaseLayout>

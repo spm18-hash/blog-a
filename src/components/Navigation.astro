@@ -1,0 +1,19 @@
+---
+import Link from "./Link.astro";
+import ArrowDown from "../assets/icons/arrow-down.svg";
+---
+
+<nav
+    id="main-menu"
+    class="hidden fixed top-16 bg-white py-6 inset-0 sm:hidden flex-col z-100 text-2xl px-4 sm:px-6 lg:px-8 gap-6 font-semibold nav-links"
+>
+    <Link href="/" className="[&_svg]:size-6"
+        ><span>Home</span><ArrowDown />
+    </Link>
+    <Link href="/tags" className="[&_svg]:size-6"
+        ><span>Tags</span><ArrowDown /></Link
+    >
+    <Link href="/blog" className="[&_svg]:size-6"
+        ><span>Blog</span><ArrowDown /></Link
+    >
+</nav>

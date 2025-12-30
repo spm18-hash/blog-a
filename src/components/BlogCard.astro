@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+import Tag from "./Tag.astro";
+
+type Props = {
+    url: string;
+    image: ImageMetadata;
+    alt: string;
+    title: string;
+    description: string;
+    tags: string[];
+    pubDate: Date;
+    imageWidth: number;
+    imageHeight: number;
+};
+
+const {
+    url,
+    title,
+    description,
+    tags,
+    image,
+    alt,
+    imageWidth,
+    imageHeight,
+    pubDate,
+} = Astro.props;
+---
+
+<div class="space-y-6">
+    <Image
+        src={image}
+        alt={alt}
+        loading={"eager"}
+        width={imageWidth}
+        height={imageHeight}
+        quality={70}
+        class="w-full h-auto aspect-auto"
+    />
+    <header class="space-y-2.5">
+        <time
+            class="font-medium text-sm inline-flex"
+            datetime={pubDate.toISOString()}
+            >{
+                String(
+                    pubDate.toLocaleDateString("en-IN", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                    }),
+                )
+            }</time
+        >
+        <h2 class="text-2xl text-balance font-bold">
+            <a data-astro-prefetch href={`/blog/${url}`}>{title}</a>
+        </h2>
+        <p class="text-neutral-700 text-pretty line-clamp-3">
+            {description}
+        </p>
+    </header>
+
+    <div class="flex flex-wrap gap-2">
+        {tags.map((tag) => <Tag href={`/tags/${tag}`} tag={tag} />)}
+    </div>
+</div>

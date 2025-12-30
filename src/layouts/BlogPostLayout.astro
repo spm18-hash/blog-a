@@ -1,0 +1,34 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { blogSchema } from "../content.config";
+import { z } from "astro/zod";
+import { Image } from "astro:assets";
+import Tag from "../components/Tag.astro";
+
+type Props = z.infer<ReturnType<typeof blogSchema>>;
+
+const { title, description, pubDate, image, imageAlt, tags } = Astro.props;
+---
+
+<BaseLayout pageTitle={title}>
+    <Image src={image} alt={imageAlt} quality={70} loading={"eager"} />
+    <div class="flex items-center justify-between">
+        <p class="font-medium my-2">
+            Published on:<span>
+                {
+                    pubDate.toLocaleDateString("en-IN", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                    })
+                }
+            </span>
+        </p>
+        <div class="max-sm:hidden flex flex-wrap gap-2 my-4">
+            {tags.map((tag) => <Tag href={`/tags/${tag}`} tag={tag} />)}
+        </div>
+    </div>
+    <article>
+        <slot />
+    </article>
+</BaseLayout>

@@ -1,0 +1,101 @@
+---
+import { Image } from "astro:assets";
+import Landscape from "../assets/jonathan-borba.jpg";
+---
+
+<div class="breadcrumb">
+    <p>Resources</p>
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path
+            d="M5 12l14 0"></path><path d="M13 18l6 -6"></path><path
+            d="M13 6l6 6"></path></svg
+    >
+    <p class="active">Design & Photography</p>
+</div>
+<header>
+    <h1 class="text-2xl capitalize font-semibold md:text-4xl xl:text-5xl">
+        untitled design & photography journal
+    </h1>
+    <p>
+        The Untitled UI Journal features carefully selected good works from
+        studios, designers, photographers, architects, photographers, and
+        creators from all around the globe. Subscribe for new posts in your
+        inbox.
+    </p>
+</header>
+<Image
+    class="mt-10"
+    src={Landscape}
+    alt="Landscape"
+    loading={"eager"}
+    format="webp"
+    quality={70}
+    priority={true}
+/>
+
+<style>
+    .breadcrumb {
+        display: flex;
+        gap: calc(var(--spacing) * 2.5);
+        align-items: center;
+        margin-block: calc(var(--spacing) * 4) calc(var(--spacing) * 5);
+        color: var(--color-blue-800);
+        font-size: var(--text-sm);
+        line-height: var(--text-sm--line-height);
+    }
+
+    .breadcrumb > p {
+        display: inline-flex;
+        font-weight: var(--font-weight-bold);
+        color: var(--color-blue-800);
+    }
+
+    .breadcrumb > svg {
+        width: calc(var(--spacing) * 4);
+        height: calc(var(--spacing) * 4);
+    }
+
+    .breadcrumb > .active {
+        display: inline-flex;
+        border-radius: var(--radius-md);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-blue-800);
+        padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 2.5);
+        background-color: color-mix(
+            in oklab,
+            var(--color-blue-600) 10%,
+            transparent 60%
+        );
+    }
+
+    header {
+        max-width: var(--container-4xl);
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--spacing) * 3.5);
+
+        p {
+            text-wrap: pretty;
+        }
+    }
+
+    .image {
+        height: auto;
+        aspect-ratio: auto;
+    }
+
+    @media screen and (min-width: 80rem) {
+        header {
+            max-width: var(--container-4xl);
+        }
+    }
+</style>

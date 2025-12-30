@@ -1,0 +1,48 @@
+---
+import BlogCard from "../../components/BlogCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+import { formatTag } from "../../lib/utils";
+
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+    const blogs = await getCollection("blog");
+
+    const uniqueTags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
+    return uniqueTags.map((tag) => {
+        const filteredBlogs = blogs.filter((blog) =>
+            blog.data.tags.includes(tag),
+        );
+        return { params: { tag }, props: { blogs: filteredBlogs } };
+    });
+}
+
+const { tag } = Astro.params;
+const { blogs } = Astro.props;
+---
+
+<BaseLayout pageTitle={`Tags: ${tag}`}>
+    <h1 class="text-4xl font-semibold tracking-tight capitalize">
+        {formatTag(tag)}
+    </h1>
+    <div
+        class="mt-8 grid w-full gap-14 md:grid-cols-2 lg:grid-cols-3 md:gap-x-6 md:gap-y-10"
+    >
+        {
+            blogs.map((blog) => (
+                <BlogCard
+                    pubDate={blog.data.pubDate}
+                    image={blog.data.image}
+                    alt={blog.data.imageAlt}
+                    imageWidth={blog.data.image.width}
+                    imageHeight={blog.data.image.height}
+                    title={blog.data.title}
+                    description={blog.data.description}
+                    url={blog.id}
+                    tags={blog.data.tags}
+                />
+            ))
+        }
+    </div>
+</BaseLayout>

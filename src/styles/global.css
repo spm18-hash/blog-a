@@ -1,0 +1,25 @@
+@import "./font.css";
+@import "tailwindcss";
+
+@theme {
+    --font-sans: Inter, sans-serif;
+    --font-mono: JetBrains Mono, monospace;
+}
+
+:has(.menu[aria-expanded="true"]) .nav-links {
+    display: flex;
+}
+
+body {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+@layer base {
+    html {
+        font-feature-settings: "ss02";
+    }
+    body {
+        font-synthesis-weight: none;
+        text-rendering: optimizeLegibility;
+    }
+}
