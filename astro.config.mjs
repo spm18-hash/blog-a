@@ -8,7 +8,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss({ optimize: true })],
   },
-  prefetch: { prefetchAll: true, defaultStrategy: "viewport" },
+  prefetch: { prefetchAll: true },
   experimental: {
     svgo: true,
   },
