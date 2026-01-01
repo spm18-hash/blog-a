@@ -1,11 +1,57 @@
 ---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogCard from "../components/BlogCard.astro";
+import ArrowRightIcon from "../assets/icons/arrow-right.svg";
+
+const allPosts = await getCollection("blog");
+
+const featuredPosts = [
+    "a-relentless-pursuit-of-perfection-in-product-design",
+    "conversations-with-makr-and-company",
+    "interview-with-photographer-and-ux-designer-viola-leblanc",
+]
+    .map((slug) => allPosts.find((post) => post.id === slug))
+    .filter((post): post is CollectionEntry<"blog"> => post !== undefined);
 
 const pageTitle = "Home";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <h1>{pageTitle}</h1>
+    <div class="flex items-center justify-between">
+        <h1 class="text-4xl font-semibold tracking-tight text-gray-900 mb-8">
+            Featured Blogs
+        </h1>
+
+        <a
+            class="flex items-center gap-1.5 capitalize font-semibold text-sm text-neutral-900 pl-3 pr-1.5 py-1 rounded-full border border-neutral-900"
+            href="/blog/"
+            ><span>Read All Blogs</span><ArrowRightIcon
+                class="size-5 -rotate-45"
+            /></a
+        >
+    </div>
+    <div
+        class="grid w-full gap-14 md:grid-cols-2 lg:grid-cols-3 md:gap-x-6 md:gap-y-12 mb-20"
+    >
+        {
+            featuredPosts.map((post) => (
+                <BlogCard
+                    url={post.id}
+                    image={post.data.image}
+                    alt={post.data.imageAlt}
+                    title={post.data.title}
+                    description={post.data.description}
+                    tags={post.data.tags}
+                    publishDate={post.data.publishDate}
+                    priority={false}
+                    imageLoading="lazy"
+                />
+            ))
+        }
+    </div>
 </BaseLayout>
 
 <style>
