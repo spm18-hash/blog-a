@@ -1,10 +1,12 @@
 ---
 title: "A Relentless Pursuit of Perfection in Product Design"
 description: "Learn how to develop a strong eye for design by practicing visual perception and composition. An essential skill for designers. Easy to learn. Popular among designers."
-pubDate: 2025-12-25
-image: "../assets/images/ofspace-llc.jpg"
+publishDate: 2025-12-30
+image: "../assets/images/a-relentless-pursuit-of-perfection-in-product-design.webp"
 imageAlt: "Jonathan Borba"
 tags: ["design", "skills", "composition","interview"]
+authors:
+  - alex
 ---
 
 # Lorem Ipsum Dolor Sit Amet

@@ -1,10 +1,12 @@
 ---
 title: "How Remote Collaboration Makes Us Better Designers"
 description: "Learn how to develop a strong eye for design by practicing visual perception and composition. An essential skill for designers. Easy to learn. Popular among designers."
-pubDate: 2025-12-25
-image: "../assets/images/ninthgrid.jpg"
+publishDate: 2025-12-28
+image: "../assets/images/how-remote-collaboration-makes-us-better-designers.webp"
 imageAlt: "Jonathan Borba"
 tags: ["design", "skills", "composition","interview"]
+authors:
+  - alex
 ---
 
 # How Remote Collaboration Makes Us Better Designers

@@ -6,18 +6,18 @@ import { cn } from "../lib/utils.ts";
 type Props = {
     classes?: string;
     href: string;
-    tag: string;
+    text: string;
 };
 
-const { tag, href, classes } = Astro.props;
+const { text, href, classes } = Astro.props;
 ---
 
 <Link
     href={href}
     className={cn(
-        "capitalize font-semibold text-xs text-neutral-900 px-2 py-0.5 rounded-full border-2 border-neutral-900",
+        "capitalize font-semibold text-xs text-neutral-900 px-2 py-0.5 rounded-full border border-neutral-900",
         classes,
     )}
 >
-    {formatTag(tag)}
+    {formatTag(text)}
 </Link>

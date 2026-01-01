@@ -3,32 +3,92 @@ import BaseLayout from "./BaseLayout.astro";
 import { blogSchema } from "../content.config";
 import { z } from "astro/zod";
 import { Image } from "astro:assets";
-import Tag from "../components/Tag.astro";
+import Pill from "../components/Pill.astro";
 
 type Props = z.infer<ReturnType<typeof blogSchema>>;
 
-const { title, description, pubDate, image, imageAlt, tags } = Astro.props;
+const { title, description, publishDate, image, imageAlt, tags, authors } =
+    Astro.props;
 ---
 
 <BaseLayout pageTitle={title}>
-    <Image src={image} alt={imageAlt} quality={70} loading={"eager"} />
-    <div class="flex items-center justify-between">
-        <p class="font-medium my-2">
-            Published on:<span>
+    <header class="space-y-4 mb-10">
+        <time
+            class="font-medium inline-flex text-xs text-neutral-900 px-2 py-0.5 rounded-full border border-neutral-900"
+            datetime={publishDate.toISOString()}
+        >
+            {
+                publishDate.toLocaleDateString("en-IN", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                })
+            }
+        </time>
+        <h1
+            class="text-gray-900 text-pretty text-4xl lg:text-5xl font-semibold tracking-tight capitalize leading-tight"
+        >
+            {title}
+        </h1>
+    </header>
+    <Image
+        src={image}
+        alt={imageAlt}
+        format="avif"
+        loading={"eager"}
+        widths={[380, 720, 1216]}
+        sizes={"90vw"}
+        priority
+        class="w-full max-w-304 h-auto aspect-3/2"
+    />
+    <div class="flex items-center justify-between my-6">
+        <p class="text-sm">
+            Written by&nbsp;
+            <span class="inline-flex flex-wrap gap-2">
                 {
-                    pubDate.toLocaleDateString("en-IN", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                    })
+                    authors.map((author) => (
+                        <Pill
+                            classes="text-sm"
+                            href={`/authors/${author}`}
+                            text={author}
+                        />
+                    ))
                 }
             </span>
         </p>
-        <div class="max-sm:hidden flex flex-wrap gap-2 my-4">
-            {tags.map((tag) => <Tag href={`/tags/${tag}`} tag={tag} />)}
+        <div class="max-sm:hidden flex max-sm:flex-wrap ml-auto gap-2">
+            {
+                tags.map((tag) => (
+                    <Pill classes="text-sm" href={`/tags/${tag}`} text={tag} />
+                ))
+            }
         </div>
     </div>
-    <article>
-        <slot />
-    </article>
+    <p class="text-lg text-pretty sm:text-xl text-gray-950 mb-24">
+        {description}
+    </p>
+    <div class="flex gap-35">
+        <aside class="flex-1 max-md:hidden sticky top-2 h-fit">
+            <div class="flex flex-col gap-4">
+                <h2 class="text-lg font-semibold">Related Posts</h2>
+                <ul class="space-y-4">
+                    <li class="border-b relative">
+                        <a
+                            class="before:absolute before:inset-0"
+                            href="/blog/improve-your-design-skills/">Post 1</a
+                        >
+                    </li>
+                    <li class="border-b">
+                        <a
+                            href="/blog/best-books-on-scaling-your-early-stage-startup/"
+                            >Post 2</a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <article class="prose">
+            <slot />
+        </article>
+    </div>
 </BaseLayout>

@@ -1,10 +1,12 @@
 ---
 title: "Best Books on Scaling Your Early Stage Startup"
 description: "Learn how to develop a strong eye for design by practicing visual perception and composition. An essential skill for designers. Easy to learn. Popular among designers."
-pubDate: 2025-12-25
-image: "../assets/images/priscilla-du-preez.jpg"
+publishDate: 2025-12-29
+image: "../assets/images/best-books-on-scaling-your-early-stage-startup.webp"
 imageAlt: "Jonathan Borba"
 tags: ["design", "skills", "composition","interview"]
+authors:
+  - alex
 ---
 
 # Lorem Ipsum Dolor Sit Amet

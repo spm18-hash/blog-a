@@ -1,0 +1,32 @@
+{
+  "alex": {
+    "name": "Alexei Kaidalov",
+    "image": "./alex.webp",
+    "twitter": "https://twitter.com/alexkaidalov"
+  },
+  "jordan": {
+    "name": "Jordan Williams",
+    "image": "./jordan.webp",
+    "twitter": "https://twitter.com/jordanwcodes"
+  },
+  "priya": {
+    "name": "Priya Sharma",
+    "image": "./priya.webp",
+    "twitter": "https://twitter.com/priyasharma_dev"
+  },
+  "daniel": {
+    "name": "Daniel Köhler",
+    "image": "./daniel.webp",
+    "twitter": "https://twitter.com/dkoehlertech"
+  },
+  "lucas": {
+    "name": "Lucas Fernández",
+    "image": "./lucas.webp",
+    "twitter": "https://twitter.com/lucasfdev"
+  },
+  "mei": {
+    "name": "Mei Lin",
+    "image": "./mei.webp",
+    "twitter": "https://twitter.com/meilin_codes"
+  }
+}

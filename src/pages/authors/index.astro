@@ -5,17 +5,17 @@ import Pill from "../../components/Pill.astro";
 import { getCollection } from "astro:content";
 const blogs = await getCollection("blog");
 
-const uniqueTags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
+const uniqueAuthors = [...new Set(blogs.flatMap((blog) => blog.data.authors))];
 ---
 
 <BaseLayout pageTitle="Tags">
     <div class="flex flex-wrap gap-2">
         {
-            uniqueTags.map((tag) => (
+            uniqueAuthors.map((author) => (
                 <Pill
                     classes="text-base px-3 py-1.5"
-                    href={`/tags/${tag}`}
-                    text={tag}
+                    href={`/authors/${author}`}
+                    text={author}
                 />
             ))
         }

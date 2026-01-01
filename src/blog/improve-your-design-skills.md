@@ -1,10 +1,12 @@
 ---
 title: "Improve Your Design Skills: Develop an 'Eye' for Design"
 description: "Learn how to develop a strong eye for design by practicing visual perception and composition. An essential skill for designers. Easy to learn. Popular among designers."
-pubDate: 2025-12-25
-image: "../assets/images/mushvig-niftaliyev.jpg"
+publishDate: 2025-12-27
+image: "../assets/images/improve-your-design-skills.webp"
 imageAlt: "Jonathan Borba"
 tags: ["design", "skills", "composition","interview"]
+authors:
+  - alex
 ---
 
 # Lorem Ipsum Dolor Sit Amet

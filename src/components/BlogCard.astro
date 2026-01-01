@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import Tag from "./Tag.astro";
+import Pill from "./Pill.astro";
 
 type Props = {
     url: string;
@@ -9,9 +9,9 @@ type Props = {
     title: string;
     description: string;
     tags: string[];
-    pubDate: Date;
-    imageWidth: number;
-    imageHeight: number;
+    publishDate: Date;
+    imageLoading: "eager" | "lazy";
+    priority: boolean;
 };
 
 const {
@@ -21,30 +21,30 @@ const {
     tags,
     image,
     alt,
-    imageWidth,
-    imageHeight,
-    pubDate,
+    imageLoading,
+    publishDate,
+    priority,
 } = Astro.props;
 ---
 
-<div class="space-y-6">
+<div class="flex flex-col gap-6">
     <Image
         src={image}
         alt={alt}
-        loading={"eager"}
-        width={389}
-        quality={70}
-        sizes={"90vw"}
-        layout="constrained"
-        class="w-full h-auto aspect-auto"
+        loading={imageLoading}
+        widths={[380, 720, 960]}
+        sizes={"80vw"}
+        format="avif"
+        class="w-full h-auto aspect-3/2"
+        priority={priority}
     />
     <header class="space-y-2.5">
         <time
             class="font-medium text-sm inline-flex"
-            datetime={pubDate.toISOString()}
+            datetime={publishDate.toISOString()}
             >{
                 String(
-                    pubDate.toLocaleDateString("en-IN", {
+                    publishDate.toLocaleDateString("en-IN", {
                         day: "2-digit",
                         month: "short",
                         year: "numeric",
@@ -61,6 +61,6 @@ const {
     </header>
 
     <div class="flex flex-wrap gap-2">
-        {tags.map((tag) => <Tag href={`/tags/${tag}`} tag={tag} />)}
+        {tags.map((tag) => <Pill href={`/tags/${tag}`} text={tag} />)}
     </div>
 </div>

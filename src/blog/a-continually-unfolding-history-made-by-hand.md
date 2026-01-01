@@ -1,10 +1,13 @@
 ---
 title: "A Continually Unfolding History Made by Hand"
 description: "Learn how to develop a strong eye for design by practicing visual perception and composition. An essential skill for designers. Easy to learn. Popular among designers."
-pubDate: 2025-12-25
-image: "../assets/images/new-data-services.jpg"
+publishDate: 2025-12-31
+image: "../assets/images/a-continually-unfolding-history-made-by-hand.webp"
 imageAlt: "Jonathan Borba"
 tags: ["design", "skills", "composition","interview"]
+authors:
+  - alex
+  - jordan
 ---
 
 # How Remote Collaboration Makes Us Better Designers

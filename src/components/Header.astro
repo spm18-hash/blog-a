@@ -32,6 +32,13 @@ const { currentURL } = Astro.props;
                 ? "underline underline-offset-4 decoration-wavy decoration-blue-600 text-blue-600 font-semibold"
                 : ""}><span>Tags</span><ArrowDown /></Link
         >
+
+        <Link
+            href="/authors/"
+            className={currentURL.includes("authors")
+                ? "underline underline-offset-4 decoration-wavy decoration-blue-600 text-blue-600 font-semibold"
+                : ""}><span>Authors</span><ArrowDown /></Link
+        >
         <Link
             href="/blog"
             className={currentURL.includes("blog")

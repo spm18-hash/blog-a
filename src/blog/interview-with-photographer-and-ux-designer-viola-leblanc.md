@@ -1,10 +1,12 @@
 ---
 title: 'Interview with Photographer & UX Designer, Viola LeBlanc'
 description: "Viola LeBlanc is a renowned photographer and UX designer who has worked with some of the world's leading brands. In this blog post, she shares her insights on how to create visually stunning and user-friendly designs that captivate and engage your audience."
-pubDate: 2025-12-25
-image: '../assets/images/jonathan-borba.jpg'
+publishDate: 2025-12-26
+image: '../assets/images/interview-with-photographer-and-ux-designer-viola-leblanc.webp'
 imageAlt: 'Portrait of Viola LeBlanc'
 tags: ['photography', 'UX-design', 'interview']
+authors:
+  - jordan
 ---
 
 # Why Simplicity Wins in Modern Web Development
@@ -43,6 +45,8 @@ This is why many high-traffic websites still rely on boring ideas like:
 - Server-side rendering
 - Static files
 - Minimal JavaScript
+
+My enginer is [Duck Duck Go](https://duckduckgo.com).
 
 ---
 
