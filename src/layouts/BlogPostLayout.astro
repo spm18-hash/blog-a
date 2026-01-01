@@ -4,15 +4,27 @@ import { blogSchema } from "../content.config";
 import { z } from "astro/zod";
 import { Image } from "astro:assets";
 import Pill from "../components/Pill.astro";
+import Toc from "../components/ToC.astro";
+import type { MarkdownHeading } from "astro";
 
-type Props = z.infer<ReturnType<typeof blogSchema>>;
+type Props = z.infer<ReturnType<typeof blogSchema>> & {
+    headings: MarkdownHeading[];
+};
 
-const { title, description, publishDate, image, imageAlt, tags, authors } =
-    Astro.props;
+const {
+    title,
+    description,
+    publishDate,
+    image,
+    imageAlt,
+    tags,
+    authors,
+    headings,
+} = Astro.props;
 ---
 
 <BaseLayout pageTitle={title}>
-    <header class="space-y-4 mb-10">
+    <header class="space-y-4 mb-10 max-w-5xl">
         <time
             class="font-medium inline-flex text-xs text-neutral-900 px-2 py-0.5 rounded-full border border-neutral-900"
             datetime={publishDate.toISOString()}
@@ -30,6 +42,9 @@ const { title, description, publishDate, image, imageAlt, tags, authors } =
         >
             {title}
         </h1>
+        <p class="text-lg text-pretty sm:text-xl text-gray-950">
+            {description}
+        </p>
     </header>
     <Image
         src={image}
@@ -64,28 +79,10 @@ const { title, description, publishDate, image, imageAlt, tags, authors } =
             }
         </div>
     </div>
-    <p class="text-lg text-pretty sm:text-xl text-gray-950 mb-24">
-        {description}
-    </p>
-    <div class="flex gap-35">
-        <aside class="flex-1 max-md:hidden sticky top-2 h-fit">
-            <div class="flex flex-col gap-4">
-                <h2 class="text-lg font-semibold">Related Posts</h2>
-                <ul class="space-y-4">
-                    <li class="border-b relative">
-                        <a
-                            class="before:absolute before:inset-0"
-                            href="/blog/improve-your-design-skills/">Post 1</a
-                        >
-                    </li>
-                    <li class="border-b">
-                        <a
-                            href="/blog/best-books-on-scaling-your-early-stage-startup/"
-                            >Post 2</a
-                        >
-                    </li>
-                </ul>
-            </div>
+
+    <div class="flex max-md:flex-col gap-24">
+        <aside class="flex-1 lg:sticky lg:top-1 h-fit bg-white">
+            <Toc headings={headings} levels={3} />
         </aside>
         <article class="prose">
             <slot />

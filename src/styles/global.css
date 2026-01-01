@@ -22,6 +22,7 @@ body {
 @layer base {
     html {
         font-feature-settings: "ss02";
+        scroll-behavior: smooth;
     }
     body {
         font-synthesis-weight: none;

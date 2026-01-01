@@ -1,0 +1,100 @@
+---
+import ArrowRightIcon from "../assets/icons/arrow-right.svg";
+
+type Heading = {
+    depth: number;
+    slug: string;
+    text: string;
+};
+
+type Props = {
+    headings: Heading[];
+    levels?: 1 | 2 | 3;
+};
+
+const { headings, levels } = Astro.props;
+
+const filteredHeadings = levels
+    ? headings.filter((heading) => heading.depth <= levels)
+    : headings;
+---
+
+<ul class="flex flex-col">
+    {
+        filteredHeadings.map((heading) => (
+            <li
+                class:list={[
+                    {
+                        "pl-3": heading.depth === 2 && heading.depth <= 1,
+                        "pl-6": heading.depth === 3 && heading.depth <= 1,
+                    },
+                    "border-b py-4",
+                ]}
+            >
+                <a
+                    href={`#${heading.slug}`}
+                    class="font-medium toc-link transition hover:text-amber-600 flex items-center justify-between"
+                >
+                    <span class="inline-flex">{heading.text}</span>
+                    <ArrowRightIcon class="max-sm:rotate-90 size-5.5 inline-block" />
+                </a>
+            </li>
+        ))
+    }
+</ul>
+
+<style>
+    .toc-current {
+        color: var(--color-amber-600);
+    }
+</style>
+
+<script>
+    // Wrapper for Blog post content
+    let wrappingElement: Element | null;
+    let observeHeaderTags: IntersectionObserver;
+    let allHeaderTags: NodeListOf<Element>;
+
+    function setCurrent(e: IntersectionObserverEntry[]) {
+        let allSectionLinks = document.querySelectorAll(".toc-link");
+        e.map((i) => {
+            if (i.isIntersecting) {
+                allSectionLinks.forEach((link) =>
+                    link.classList.remove("toc-current"),
+                );
+                const targetLink = document.querySelector(
+                    `a[href="#${i.target.id}"].toc-link`,
+                );
+                if (targetLink) targetLink.classList.add("toc-current");
+            }
+        });
+    }
+
+    function initTOC() {
+        wrappingElement = document.querySelector(".prose");
+
+        if (wrappingElement !== null) {
+            allHeaderTags = wrappingElement.querySelectorAll(
+                ":scope > h1, :scope > h2, :scope > h3",
+            );
+        }
+
+        let options: IntersectionObserverInit = {
+            root: null,
+            rootMargin: "0px 0px -50% 0px",
+            threshold: [1],
+        };
+
+        observeHeaderTags = new IntersectionObserver(setCurrent, options);
+        if (wrappingElement === null) {
+            return null;
+        }
+
+        allHeaderTags.forEach((tag) => {
+            tag.classList.add("scroll-mt-5");
+            observeHeaderTags.observe(tag);
+        });
+    }
+
+    initTOC();
+</script>

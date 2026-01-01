@@ -9,7 +9,7 @@ authors:
   - jordan
 ---
 
-# Why Simplicity Wins in Modern Web Development
+## Why Simplicity in Modern Web Dev
 
 Web development has never offered more tools, frameworks, and abstractions than it does today. Ironically, this abundance often leads to **over-engineering**, slower websites, and harder-to-maintain systems.
 

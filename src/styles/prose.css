@@ -17,7 +17,7 @@
     }
 
     .prose > h2 {
-        @apply mb-4 mt-8 text-2xl font-semibold;
+        @apply mb-4 text-2xl font-semibold;
     }
 
     .prose > h3 {
@@ -31,10 +31,6 @@
     .prose strong {
         @apply font-medium text-black;
     }
-
-    /*.prose ul {
-        @apply my-4 pl-8;
-    }*/
 
     .prose ul li {
         @apply list-disc ml-8 marker:mr-20;
