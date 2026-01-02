@@ -30,7 +30,7 @@ const siteInfo: SiteInfo = {
   description:
     "Astro is a modern web framework that combines the best of front-end and back-end development.",
   image: {
-    src: "/og/social.png",
+    src: "/og/social.jpg",
     alt: "Astro Logo",
   },
   socialLinks: [
