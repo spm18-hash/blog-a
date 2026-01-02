@@ -25,7 +25,7 @@ const pages = allPages.map((href, i) => {
 const collapsedPages = collapseRange(page, pages);
 ---
 
-<nav>
+<nav aria-label={ariaLabel} {...attrs}>
     <ul class="my-20 flex w-full justify-center items-center gap-4">
         {
             page.url.prev && (
