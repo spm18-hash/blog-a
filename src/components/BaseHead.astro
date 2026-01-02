@@ -1,0 +1,69 @@
+---
+import SEO from "./SEO.astro";
+
+import siteInfo from "../data/site-info";
+
+export type Props = {
+    title?: string;
+    rawTitle?: string;
+    description?: string;
+    image?: { src: string; alt: string };
+    canonicalURL?: URL | null;
+    pageType?: "website" | "article";
+};
+
+const twitterHandle = "smitin_";
+
+const {
+    rawTitle,
+    description = siteInfo.description,
+    image = siteInfo.image,
+    canonicalURL = new URL(Astro.request.url, Astro.site),
+    pageType = "website",
+} = Astro.props;
+
+const title =
+    rawTitle ?? [Astro.props.title, siteInfo.name].filter(Boolean).join(" | ");
+const resolvedImage = {
+    src: new URL(image.src, Astro.site).toString(),
+    alt: image.alt || "Site Image",
+};
+---
+
+<!-- High priority global metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+
+<link
+    rel="preload"
+    href="/fonts/inter-latin.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+/>
+<link
+    rel="preload"
+    href="/fonts/jetbrains-mono-latin.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+/>
+
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link
+    rel="alternate"
+    type="application/rss+xml"
+    title="RSS feed for Blog A Brown"
+    href={new URL("rss.xml", Astro.site)}
+/>
+
+<SEO
+    name={siteInfo.name}
+    title={title}
+    description={description}
+    image={resolvedImage}
+    twitter={{ handle: twitterHandle }}
+    og={{ type: pageType }}
+    canonicalURL={canonicalURL}
+/>
