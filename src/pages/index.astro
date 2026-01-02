@@ -19,14 +19,14 @@ const featuredPosts = [
 const pageTitle = "Home";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
-    <div class="flex items-center justify-between">
-        <h1 class="text-4xl font-semibold tracking-tight text-gray-900 mb-8">
+<BaseLayout title={pageTitle}>
+    <div class="flex items-center justify-between mb-8">
+        <h1 class="text-4xl font-semibold tracking-tight text-gray-900">
             Featured Blogs
         </h1>
 
         <a
-            class="flex items-center gap-1.5 capitalize font-semibold text-sm text-neutral-900 pl-3 pr-1.5 py-1 rounded-full border border-neutral-900"
+            class="hidden sm:inline-flex w-fit items-center gap-1.5 capitalize font-semibold text-sm text-neutral-900 pl-3 pr-1.5 py-1 rounded-full border border-neutral-900"
             href="/blog/"
             ><span>Read All Blogs</span><ArrowRightIcon
                 class="size-5 -rotate-45"
@@ -37,8 +37,9 @@ const pageTitle = "Home";
         class="grid w-full gap-14 md:grid-cols-2 lg:grid-cols-3 md:gap-x-6 md:gap-y-12 mb-20"
     >
         {
-            featuredPosts.map((post) => (
+            featuredPosts.map((post, index) => (
                 <BlogCard
+                    fetchPriority={index === 0 ? "high" : "auto"}
                     url={post.id}
                     image={post.data.image}
                     alt={post.data.imageAlt}
@@ -46,18 +47,17 @@ const pageTitle = "Home";
                     description={post.data.description}
                     tags={post.data.tags}
                     publishDate={post.data.publishDate}
-                    priority={false}
-                    imageLoading="lazy"
+                    priority={index < 3}
+                    imageLoading={index < 3 ? "eager" : "lazy"}
                 />
             ))
         }
     </div>
+    <a
+        class="sm:hidden justify-center flex items-center gap-1.5 capitalize font-semibold text-sm text-neutral-900 pl-3 pr-1.5 py-1 rounded-full border border-neutral-900"
+        href="/blog/"
+        ><span>Read All Blogs</span><ArrowRightIcon
+            class="size-5 -rotate-45"
+        /></a
+    >
 </BaseLayout>
-
-<style>
-    h1 {
-        font-size: var(--text-4xl);
-        font-weight: var(--font-weight-semibold);
-        letter-spacing: var(--tracking-tight);
-    }
-</style>

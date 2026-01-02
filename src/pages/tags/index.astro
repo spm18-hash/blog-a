@@ -8,7 +8,7 @@ const blogs = await getCollection("blog");
 const uniqueTags = [...new Set(blogs.flatMap((blog) => blog.data.tags))];
 ---
 
-<BaseLayout pageTitle="Tags">
+<BaseLayout title="Tags">
     <div class="flex flex-wrap gap-2">
         {
             uniqueTags.map((tag) => (

@@ -1,36 +1,30 @@
 ---
 import "../styles/global.css";
 import Header from "../components/Header.astro";
+import BaseHead, {
+    type Props as HeadProps,
+} from "../components/BaseHead.astro";
 
-type Props = {
-    pageTitle: string;
+type Props = HeadProps & {
+    class?: string;
 };
 
-const { pageTitle } = Astro.props;
+const { ...head } = Astro.props;
 
 const currentURL = Astro.url.pathname.split("/").slice(1);
 ---
 
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="generator" content={Astro.generator} />
-
-        <title>{pageTitle}</title>
+        <BaseHead {...head} />
     </head>
     <body>
         <Header currentURL={currentURL} />
-        <!-- <h1>{pageTitle}</h1> -->
         <main class="mt-8">
             <slot />
         </main>
-        <!-- <Footer /> -->
     </body>
 </html>
 
-<script>
-    import "../scripts/menu.ts";
-</script>
+<script src="../scripts/menu.ts"></script>

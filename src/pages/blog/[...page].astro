@@ -5,13 +5,9 @@ import { getCollection } from "astro:content";
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
-
-import ArrowLeftIcon from "../../assets/icons/arrow-left.svg";
-import ArrowRightIcon from "../../assets/icons/arrow-right.svg";
+import Pagination from "../../components/Pagination.astro";
 
 import { PAGE_SIZE } from "../../const";
-
-import { collapseRange } from "../../helpers/paginate";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
     const posts = await getCollection("blog");
@@ -28,16 +24,10 @@ const allPages = [...Array(page.lastPage).keys()].map((num) => {
     return `/blog${num === 0 ? "" : `/${String(num + 1)}`}`;
 });
 
-const pages = allPages.map((href, i) => {
-    return { pageNum: i + 1, text: String(i + 1), href };
-});
-
-const collapsedPages = collapseRange(page, pages);
-
 const pageTitle = "All Blogs";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout title={pageTitle}>
     <h1 class="text-4xl font-semibold tracking-tight text-gray-900 mb-8">
         All Blogs
     </h1>
@@ -48,6 +38,7 @@ const pageTitle = "All Blogs";
         {
             page.data.map((blog, index) => (
                 <BlogCard
+                    fetchPriority={index < 3 ? "high" : "auto"}
                     url={blog.id}
                     image={blog.data.image}
                     alt={blog.data.imageAlt}
@@ -55,109 +46,12 @@ const pageTitle = "All Blogs";
                     description={blog.data.description}
                     tags={blog.data.tags}
                     publishDate={blog.data.publishDate}
-                    priority={index === 0}
-                    imageLoading={index <= 3 ? "eager" : "lazy"}
+                    priority={index < 3}
+                    imageLoading={index <= 4 ? "eager" : "lazy"}
                 />
             ))
         }
     </div>
 
-    <ul class="my-20 flex w-full justify-center items-center gap-4">
-        {
-            page.url.prev && (
-                <li class="prev rounded-full border border-white">
-                    <a
-                        href={page.url.prev}
-                        class="flex size-10 items-center justify-center"
-                    >
-                        <span class="sr-only">
-                            Go to page {page.currentPage - 1} of {page.lastPage}
-                        </span>
-                        <ArrowLeftIcon class="size-5" />
-                    </a>
-                </li>
-            )
-        }
-
-        {
-            collapsedPages.map((link) => (
-                <li class="hidden sm:inline-block">
-                    {!link.href ? (
-                        <p>{link.text}</p>
-                    ) : (
-                        <a
-                            href={link.href}
-                            class:list={[
-                                "relative flex size-10 items-center justify-center rounded-full border border-transparent transition-colors duration-150",
-                                link.pageNum !== page.currentPage &&
-                                    "hover:border-gray-950 focus:border-gray-950",
-                            ]}
-                            aria-current={
-                                link.pageNum === page.currentPage
-                                    ? "page"
-                                    : undefined
-                            }
-                        >
-                            {link.pageNum}
-                        </a>
-                    )}
-                </li>
-            ))
-        }
-
-        {
-            page.url.next && (
-                <li class="next rounded-full border border-white">
-                    <a
-                        href={page.url.next}
-                        class="flex size-10 items-center justify-center"
-                    >
-                        <span class="sr-only">
-                            Go to page {page.currentPage - 1} of {page.lastPage}
-                        </span>
-                        <ArrowRightIcon class="size-5" />
-                    </a>
-                </li>
-            )
-        }
-    </ul>
+    <Pagination allPages={allPages} page={page} />
 </BaseLayout>
-
-<style is:global>
-    .next:hover,
-    .prev:hover {
-        background: linear-gradient(
-            247.23deg,
-            rgba(74, 242, 200, 0.2) 0%,
-            rgba(47, 76, 179, 0.2) 100%
-        );
-    }
-
-    [aria-current="page"]::before {
-        position: absolute;
-        inset: 0;
-        content: "";
-        margin: -1px;
-        border-radius: inherit;
-        background: linear-gradient(
-            247.23deg,
-            rgba(74, 242, 200, 1) 0%,
-            rgba(47, 76, 179, 1) 100%
-        );
-        z-index: -2;
-    }
-
-    [aria-current="page"]::after {
-        position: absolute;
-        z-index: -1;
-        inset: 0;
-        content: "";
-        border-radius: inherit;
-        background: rgb(35 38 45)
-            linear-gradient(
-                247.23deg,
-                rgba(74, 242, 200, 0.2) 0%,
-                rgba(47, 76, 179, 0.2) 100%
-            );
-    }
-</style>

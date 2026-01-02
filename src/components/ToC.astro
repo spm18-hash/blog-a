@@ -20,6 +20,7 @@ const filteredHeadings = levels
 ---
 
 <ul class="flex flex-col">
+    <h3 class="font-medium mb-2">Contents</h3>
     {
         filteredHeadings.map((heading) => (
             <li
@@ -33,10 +34,12 @@ const filteredHeadings = levels
             >
                 <a
                     href={`#${heading.slug}`}
-                    class="font-medium toc-link transition hover:text-amber-600 flex items-center justify-between"
+                    class="text-sm text-gray-700 font-medium toc-link transition hover:text-blue-700 flex items-center justify-between"
                 >
-                    <span class="inline-flex">{heading.text}</span>
-                    <ArrowRightIcon class="max-sm:rotate-90 size-5.5 inline-block" />
+                    <span class="inline-flex max-w-[calc(100%-2.4rem)]">
+                        {heading.text}
+                    </span>
+                    <ArrowRightIcon class="max-sm:rotate-90 size-5 inline-block" />
                 </a>
             </li>
         ))
@@ -45,7 +48,7 @@ const filteredHeadings = levels
 
 <style>
     .toc-current {
-        color: var(--color-amber-600);
+        color: var(--color-blue-700);
     }
 </style>
 

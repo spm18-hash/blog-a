@@ -12,6 +12,7 @@ type Props = {
     publishDate: Date;
     imageLoading: "eager" | "lazy";
     priority: boolean;
+    fetchPriority: "high" | "auto";
 };
 
 const {
@@ -24,6 +25,7 @@ const {
     imageLoading,
     publishDate,
     priority,
+    fetchPriority,
 } = Astro.props;
 ---
 
@@ -37,6 +39,7 @@ const {
         format="avif"
         class="w-full h-auto aspect-3/2"
         priority={priority}
+        fetchpriority={fetchPriority}
     />
     <header class="space-y-2.5">
         <time

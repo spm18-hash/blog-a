@@ -6,6 +6,7 @@ import { Image } from "astro:assets";
 import Pill from "../components/Pill.astro";
 import Toc from "../components/ToC.astro";
 import type { MarkdownHeading } from "astro";
+import RSSIcon from "../assets/icons/rss.svg";
 
 type Props = z.infer<ReturnType<typeof blogSchema>> & {
     headings: MarkdownHeading[];
@@ -23,7 +24,7 @@ const {
 } = Astro.props;
 ---
 
-<BaseLayout pageTitle={title}>
+<BaseLayout title={title} description={description} pageType="article">
     <header class="space-y-4 mb-10 max-w-5xl">
         <time
             class="font-medium inline-flex text-xs text-neutral-900 px-2 py-0.5 rounded-full border border-neutral-900"
@@ -42,9 +43,6 @@ const {
         >
             {title}
         </h1>
-        <p class="text-lg text-pretty sm:text-xl text-gray-950">
-            {description}
-        </p>
     </header>
     <Image
         src={image}
@@ -79,13 +77,47 @@ const {
             }
         </div>
     </div>
-
+    <p class="text-lg text-pretty sm:text-xl text-gray-950 mb-20">
+        {description}
+    </p>
     <div class="flex max-md:flex-col gap-24">
         <aside class="flex-1 lg:sticky lg:top-1 h-fit bg-white">
             <Toc headings={headings} levels={3} />
+            <div
+                class="text-sm mt-16 border-y py-4 flex flex-col gap-4.5 max-sm:hidden"
+            >
+                <div class="space-y-2">
+                    <h2 class="font-mono text-base font-medium">Subscribe</h2>
+                    <p class="text-gray-800">
+                        Stay up-to-date with news from Blog A Brown.
+                    </p>
+                </div>
+                <a
+                    href={new URL("rss.xml", Astro.site)}
+                    class="border w-fit px-3 py-1 rounded-full inline-flex font-medium items-center gap-2 bg-transparent text-blue-700 transition-colors duration-150 hover:bg-blue-50"
+                >
+                    <RSSIcon class="size-4.5 stroke-3" />
+                    <span>RSS</span>
+                </a>
+            </div>
         </aside>
+
         <article class="prose">
             <slot />
         </article>
+
+        <div class="mt-10 border-y py-4 flex flex-col gap-5 sm:hidden">
+            <div class="space-y-3.5">
+                <h2 class="font-mono font-medium">Subscribe</h2>
+                <p>Stay up-to-date with news from Blog A Brown</p>
+            </div>
+            <a
+                href={new URL("rss.xml", Astro.site)}
+                class="border w-fit px-4 py-1.5 rounded-full inline-flex text-sm font-medium items-center gap-2 text-amber-600 hover:text-amber-700"
+            >
+                <RSSIcon class="size-5" />
+                <span>RSS</span>
+            </a>
+        </div>
     </div>
 </BaseLayout>
